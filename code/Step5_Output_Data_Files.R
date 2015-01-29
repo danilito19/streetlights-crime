@@ -18,16 +18,9 @@ Street.Lights.OneOut<- read.csv(file="street-one.csv", head=TRUE)
 Street.Lights.AllOut<- read.csv(file="street-all.csv", head=TRUE)
 
 #Change Community Areas to Numeric
-Alley.Lights$community_area <- as.character(Alley.Lights$community_area)
-Street.Lights.OneOut$community_area <- as.character(Street.Lights.OneOut$community_area)
-Street.Lights.AllOut$community_area <- as.character(Street.Lights.AllOut$community_area)
-
-Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==4)] <- as.numeric(substr(Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==4)],3,3))
-Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==5)] <- as.numeric(substr(Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==5)],3,4))
-Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==4)] <- as.numeric(substr(Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==4)],3,3))
-Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==5)] <- as.numeric(substr(Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==5)],3,4))
-Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==4)] <- as.numeric(substr(Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==4)],3,3))
-Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==5)] <- as.numeric(substr(Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==5)],3,4))
+Alley.Lights$community_area         <- as.numeric(Alley.Lights$community_area)
+Street.Lights.OneOut$community_area <- as.numeric(Street.Lights.OneOut$community_area)
+Street.Lights.AllOut$community_area <- as.numeric(Street.Lights.AllOut$community_area)
 
 # Remove Duplicates
 Alley.Lights         <-         Alley.Lights[!duplicated(Alley.Lights$Service.Request.No),]

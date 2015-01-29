@@ -1,10 +1,8 @@
-rm(list = ls())
 
 #Load Necessary Packages
 library(plyr)
 library(doBy)
 library(reshape)
-
 
 setwd("C:/Users/Zach/Documents/UrbanCCD/Streetlights")
 
@@ -18,19 +16,12 @@ Street.Lights.OneOut<- read.csv(file="street-one.csv", head=TRUE)
 Street.Lights.AllOut<- read.csv(file="street-all.csv", head=TRUE)
 
 #Change Community Areas to Numeric
-Alley.Lights$community_area <- as.character(Alley.Lights$community_area)
-Street.Lights.OneOut$community_area <- as.character(Street.Lights.OneOut$community_area)
-Street.Lights.AllOut$community_area <- as.character(Street.Lights.AllOut$community_area)
-
-Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==4)] <- as.numeric(substr(Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==4)],3,3))
-Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==5)] <- as.numeric(substr(Alley.Lights$community_area[which(nchar(Alley.Lights$community_area)==5)],3,4))
-Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==4)] <- as.numeric(substr(Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==4)],3,3))
-Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==5)] <- as.numeric(substr(Street.Lights.OneOut$community_area[which(nchar(Street.Lights.OneOut$community_area)==5)],3,4))
-Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==4)] <- as.numeric(substr(Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==4)],3,3))
-Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==5)] <- as.numeric(substr(Street.Lights.AllOut$community_area[which(nchar(Street.Lights.AllOut$community_area)==5)],3,4))
+Alley.Lights$community_area         <- as.numeric(Alley.Lights$community_area)
+Street.Lights.OneOut$community_area <- as.numeric(Street.Lights.OneOut$community_area)
+Street.Lights.AllOut$community_area <- as.numeric(Street.Lights.AllOut$community_area)
 
 # Remove Duplicates
-Alley.Lights         <-         Alley.Lights[!duplicated(Alley.Lights$Service.Request.No),]
+Alley.Lights         <-  Alley.Lights[!duplicated(Alley.Lights$Service.Request.No),]
 Street.Lights.OneOut <- Street.Lights.OneOut[!duplicated(Street.Lights.OneOut$Service.Request.No),]
 Street.Lights.AllOut <- Street.Lights.AllOut[!duplicated(Street.Lights.AllOut$Service.Request.No),]
 
@@ -51,12 +42,14 @@ Summary.Table.OneOut <- data.frame(matrix(ncol = 4, nrow = 11), row.names = c("A
 Summary.Table.AllOut <- data.frame(matrix(ncol = 4, nrow = 11), row.names = c("All Crimes (No Deceptive Practice)", 
                                                                               "Theft", "Narcotics", "Battery", "Criminal Damage", "Motor Vehicle Theft", 
                                                                               "Robbery", "Assault", "Burglary", "Homicide", "Deceptive Practice"))
-Summary.Table.Alley  <- rename(Summary.Table.Alley,  c("X1"="Before", "X2"="During", "X3"="After", "X4"="AvgBeforeAfter"))
-Summary.Table.OneOut <- rename(Summary.Table.OneOut, c("X1"="Before", "X2"="During", "X3"="After", "X4"="AvgBeforeAfter"))
-Summary.Table.AllOut <- rename(Summary.Table.AllOut, c("X1"="Before", "X2"="During", "X3"="After", "X4"="AvgBeforeAfter"))
 
+#rename columns
+col_names<- c("X1"="Before", "X2"="During", "X3"="After", "X4"="AvgBeforeAfter")
+Summary.Table.Alley  <- rename(Summary.Table.Alley, col_names)
+Summary.Table.OneOut <- rename(Summary.Table.OneOut, col_names)
+Summary.Table.AllOut <- rename(Summary.Table.AllOut, col_names)
 
-
+#calculating averages
 Summary.Table.Alley[1,1]  <- 30*sum(Alley.Lights$Crimes.All.Before)       /(30*nrow(Alley.Lights))
 Summary.Table.Alley[2,1]  <- 30*sum(Alley.Lights$Theft.Before)            /(30*nrow(Alley.Lights))
 Summary.Table.Alley[3,1]  <- 30*sum(Alley.Lights$Narcotics.Before)        /(30*nrow(Alley.Lights))
@@ -65,6 +58,7 @@ Summary.Table.Alley[5,1]  <- 30*sum(Alley.Lights$CriminalDamage.Before)   /(30*n
 Summary.Table.Alley[6,1]  <- 30*sum(Alley.Lights$MotorVehicleTheft.Before)/(30*nrow(Alley.Lights))
 Summary.Table.Alley[7,1]  <- 30*sum(Alley.Lights$Robbery.Before)          /(30*nrow(Alley.Lights))
 Summary.Table.Alley[8,1]  <- 30*sum(Alley.Lights$Assault.Before)          /(30*nrow(Alley.Lights))
+
 Summary.Table.Alley[1,2]  <- 30*sum(Alley.Lights$Crimes.All.During)       /sum(Alley.Lights$OutageDuration)
 Summary.Table.Alley[2,2]  <- 30*sum(Alley.Lights$Theft.During)            /sum(Alley.Lights$OutageDuration)
 Summary.Table.Alley[3,2]  <- 30*sum(Alley.Lights$Narcotics.During)        /sum(Alley.Lights$OutageDuration)

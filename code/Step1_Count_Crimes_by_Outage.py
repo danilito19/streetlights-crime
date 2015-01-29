@@ -4,6 +4,10 @@ import datetime
 import pickle as pkl
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
+import os
+
+os.chdir("/Users/Dana/Dropbox/dataScience/Streetlights-crime/data")
+
 
 month_number = {
     'Jan': 1,
@@ -365,4 +369,6 @@ def count_street_lights_out_and_crimes(outage_type='street-one', cbd=None):
     out_csv.close()
     
 
-
+count_alley_lights_out_and_crimes()
+count_street_lights_out_and_crimes(outage_type='street-one')
+count_street_lights_out_and_crimes(outage_type='street-all')
