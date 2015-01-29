@@ -4,9 +4,6 @@ import datetime
 import pickle as pkl
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-import os
-
-os.chdir("/Users/Dana/Dropbox/dataScience/Streetlights-crime/data")
 
 
 month_number = {
