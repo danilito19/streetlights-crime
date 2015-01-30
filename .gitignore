@@ -1,0 +1,6 @@
+*.Rhistory
+*.DS_Store
+*.Rda
+alley.csv
+street-all.csv
+street-one.csv
