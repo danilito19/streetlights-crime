@@ -365,7 +365,7 @@ def count_street_lights_out_and_crimes(outage_type='street-one', cbd=None):
         #    break
     out_csv.close()
     
-
-count_alley_lights_out_and_crimes()
-count_street_lights_out_and_crimes(outage_type='street-one')
-count_street_lights_out_and_crimes(outage_type='street-all')
+if __name__ == '__main__':
+    count_alley_lights_out_and_crimes()
+    count_street_lights_out_and_crimes(outage_type='street-one')
+    count_street_lights_out_and_crimes(outage_type='street-all')
